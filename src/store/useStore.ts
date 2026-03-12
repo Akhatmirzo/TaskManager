@@ -9,7 +9,7 @@ interface AppState {
     setProfile: (profile: User | null) => void;
 
     // Navigation & UI
-    activeTab: 'tasks' | 'kanban' | 'chat' | 'stats' | 'calendar' | 'team' | 'users';
+    activeTab: 'tasks' | 'kanban' | 'chat' | 'stats' | 'calendar' | 'team' | 'users' | 'profile';
     setActiveTab: (tab: AppState['activeTab']) => void;
 
     selectedProjectId: string | null;

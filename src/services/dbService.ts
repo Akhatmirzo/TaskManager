@@ -16,7 +16,10 @@ export const dbService = {
       updatedAt: p.updated_at,
       isMain: p.is_main,
       createdBy: p.created_by,
-      team: p.team?.map((m: any) => m.profiles) || [],
+      team: p.team?.map((m: any) => ({
+        ...m.profiles,
+        telegramUsername: m.profiles.telegram_username
+      })) || [],
       taskCount: p.tasks?.[0]?.count || 0,
       completedCount: 0,
       telegramBotToken: p.telegram_bot_token,
@@ -308,15 +311,25 @@ export const dbService = {
   },
 
   async updateProfile(userId: string, updates: Partial<User>) {
+    const mappedUpdates: any = {};
+    if (updates.name !== undefined) mappedUpdates.name = updates.name;
+    if (updates.username !== undefined) mappedUpdates.username = updates.username;
+    if (updates.avatar !== undefined) mappedUpdates.avatar = updates.avatar;
+    if (updates.role !== undefined) mappedUpdates.role = updates.role;
+    if (updates.telegramUsername !== undefined) mappedUpdates.telegram_username = updates.telegramUsername;
+
     const { data, error } = await supabase
       .from('profiles')
-      .update(updates)
+      .update(mappedUpdates)
       .eq('id', userId)
       .select()
       .single();
 
     if (error) throw error;
-    return data as User;
+    return {
+      ...data,
+      telegramUsername: data.telegram_username
+    } as User;
   },
 
   async createProfile(id: string, username: string, name: string, email: string, role: UserRole) {
@@ -338,7 +351,11 @@ export const dbService = {
       .maybeSingle();
 
     if (error) throw error;
-    return data as User | null;
+    if (!data) return null;
+    return {
+      ...data,
+      telegramUsername: data.telegram_username
+    } as User;
   },
 
   async addProjectMember(projectId: string, username: string) {

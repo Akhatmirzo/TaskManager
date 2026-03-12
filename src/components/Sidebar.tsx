@@ -1,6 +1,6 @@
 import React, { memo } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
-import { LayoutGrid, List, Kanban, MessageSquare, BarChart3, Calendar, Users, Bell, LogOut, Search, Plus, Star, ChevronDown, FolderPlus, X } from 'lucide-react';
+import { LayoutGrid, List, Kanban, MessageSquare, BarChart3, Calendar, Users, Bell, LogOut, Search, Plus, Star, ChevronDown, FolderPlus, X, UserCircle } from 'lucide-react';
 import { User, Project, UserRole } from '../types';
 
 interface SidebarProps {
@@ -115,6 +115,7 @@ const Sidebar = memo(({
               { id: 'stats', icon: BarChart3, label: 'Statistika' },
               { id: 'calendar', icon: Calendar, label: 'Kalendar' },
               { id: 'team', icon: Users, label: 'Jamoa' },
+              { id: 'profile', icon: UserCircle, label: 'Profil' },
               ...(profile?.role === UserRole.ADMIN ? [{ id: 'users', icon: Users, label: 'Foydalanuvchilar' }] : []),
             ].map((item) => (
               <button
@@ -136,8 +137,11 @@ const Sidebar = memo(({
         </div>
 
         <div className="p-8 border-t border-gray-50">
-          <div className="flex items-center gap-4 p-4 bg-gray-50 rounded-[2rem] border border-gray-100">
-            <div className="w-10 h-10 rounded-2xl bg-black text-white flex items-center justify-center font-bold text-sm shadow-md overflow-hidden">
+          <div
+            onClick={() => setActiveTab('profile')}
+            className="flex items-center gap-4 p-4 bg-gray-50 rounded-[2rem] border border-gray-100 cursor-pointer hover:bg-gray-100 transition-all group"
+          >
+            <div className="w-10 h-10 rounded-2xl bg-black text-white flex items-center justify-center font-bold text-sm shadow-md overflow-hidden group-hover:scale-105 transition-transform">
               {profile?.avatar ? (
                 <img src={profile.avatar} alt={profile.name} className="w-full h-full object-cover" />
               ) : (

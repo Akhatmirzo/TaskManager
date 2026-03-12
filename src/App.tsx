@@ -55,6 +55,7 @@ import { ProjectChat as ChatView } from './components/ProjectChat';
 import { ProjectForm } from './components/ProjectForm';
 import { TaskForm } from './components/TaskForm';
 import { UserManagement } from './components/UserManagement';
+import { ProfileView } from './components/ProfileView';
 
 // Hooks & Store
 import { useStore } from './store/useStore';
@@ -598,6 +599,18 @@ export default function App() {
                   {activeTab === 'stats' && <StatsView tasks={tasks} />}
                   {activeTab === 'calendar' && <CalendarView tasks={tasks} />}
                   {activeTab === 'team' && <TeamView project={selectedProject!} onRefresh={() => queryClient.invalidateQueries({ queryKey: ['projects'] })} />}
+                  {activeTab === 'users' && <UserManagement />}
+                  {activeTab === 'profile' && profile && (
+                    <ProfileView
+                      user={profile}
+                      onUpdate={async (updates) => {
+                        const updated = await dbService.updateProfile(profile.id, updates);
+                        setProfile(updated);
+                        queryClient.invalidateQueries({ queryKey: ['profiles'] });
+                        success('Profil yangilandi');
+                      }}
+                    />
+                  )}
                 </div>
               </motion.div>
             )}

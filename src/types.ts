@@ -31,6 +31,7 @@ export interface User {
   avatar?: string;
   email: string;
   role: UserRole;
+  telegramUsername?: string;
 }
 
 export interface Comment {

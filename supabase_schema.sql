@@ -5,6 +5,7 @@ CREATE TABLE public.profiles (
     name TEXT NOT NULL,
     avatar TEXT,
     email TEXT UNIQUE NOT NULL,
+    telegram_username TEXT,
     role TEXT DEFAULT 'Member' CHECK (role IN ('Admin', 'Member', 'Viewer')),
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );
@@ -24,6 +25,8 @@ CREATE TABLE public.projects (
     end_date DATE,
     github_url TEXT,
     domain_url TEXT,
+    telegram_bot_token TEXT,
+    telegram_chat_id TEXT,
     created_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL,
     updated_at TIMESTAMP WITH TIME ZONE DEFAULT timezone('utc'::text, now()) NOT NULL
 );

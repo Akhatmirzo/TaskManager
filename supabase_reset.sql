@@ -14,6 +14,4 @@ GRANT ALL ON SCHEMA public TO authenticated;
 GRANT ALL ON SCHEMA public TO service_role;
 
 -- Endi siz quyidagi tartibda qayta o'rnatishingiz mumkin:
--- 1. supabase_schema.sql
--- 2. supabase_automation.sql
--- 3. supabase_security_fix.sql
+-- 1. supabase_complete_setup.sql (Barcha jadvallar, triggerlar va politsiyalar birda)
