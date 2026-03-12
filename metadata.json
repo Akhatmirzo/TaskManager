@@ -1,0 +1,5 @@
+{
+  "name": "ProManager - Loyihalarni Boshqarish",
+  "description": "Loyihalarni yaratish, tasklarni boshqarish va kelajakdagi rejalarni saqlash uchun qulay web ilova.",
+  "requestFramePermissions": ["notifications"]
+}
